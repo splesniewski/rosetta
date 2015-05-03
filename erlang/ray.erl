@@ -9,8 +9,9 @@
 
 -define(ZEROVEC, #vec{x=0.0,y=0.0,z=0.0}).
 
--define(OVERSAMPLESIZE, 2).
+-define(OVERSAMPLESIZE, 4).
 -define(RESOLUTION, 512).
+-define(LEVEL, 6).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -130,17 +131,17 @@ start_plists()->
     halt().
 
 start(single)->
-    Level=5, % Number of Spheres
+    Level=?LEVEL, % Number of Spheres
     Eye=vec_unitise(#vec{x=-3.0,y=-3.0,z=2.0}),
     Scene=create(Level,  1.0,  0.0,-1.0,0.0), % Scene tree
     trace(single,Scene,Eye);
 start(process)->
-    Level=5, % Number of Spheres
+    Level=?LEVEL, % Number of Spheres
     Eye=vec_unitise(#vec{x=-3.0,y=-3.0,z=2.0}),
     Scene=create(Level,  1.0,  0.0,-1.0,0.0), % Scene tree
     trace(process,Scene,Eye);
 start(plists)->
-    Level=5, % Number of Spheres
+    Level=?LEVEL, % Number of Spheres
     Eye=vec_unitise(#vec{x=-3.0,y=-3.0,z=2.0}),
     Scene=create(Level,  1.0,  0.0,-1.0,0.0), % Scene tree
     trace(plists,Scene,Eye).
