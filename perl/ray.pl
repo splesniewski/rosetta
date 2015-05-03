@@ -10,8 +10,9 @@ my $DELTA=sqrt($EPSILON);
 
 my $ZEROVEC={X=>0.0,Y=>0.0,Z=>0.0};
 
-my $OVERSAMPLESIZE=2;
-my $RESOLUTION=256;
+my $OVERSAMPLESIZE=4;
+my $RESOLUTION=512;
+my $LEVEL=6;
 
 my $ST_GROUP=0;
 my $ST_SPHERE=1;
@@ -161,7 +162,7 @@ sub pixel{
 
 ################################################################
 sub start{
-    my $Level=5; # Number of Spheres
+    my $Level=$LEVEL; # Number of Spheres
     my$Eye=vec_unitise({X=>-3.0,Y=>-3.0,Z=>2.0});
     my$Scene=create($Level,  1.0,  0.0,-1.0,0.0); # Scene tree
     trace($Eye, $Scene);
