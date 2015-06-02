@@ -2,25 +2,35 @@
 #
 #
 OS=$(shell uname -s)
+cPYTHON2=python
+cJYTHON2=jython
+cPYPY=pypy
+
 ifeq ($(OS),Darwin)
 	cPYTHON2=/opt/local/bin/python2.7
-else
-	ifeq ($(OS),Linux)
-		cPYTHON2=/usr/bin/python2.7
-	else
-		cPYTHON2=python
-	endif
+	cJYTHON2=/opt/local/bin/jython
+	cPYPY=/opt/local/bin/pypy
 endif
 
 
-all: python.ray.png
+all: python.ray.png jython.ray.png pypy.ray.png
 
 clean:
 	-rm -f *~ make.log
 	-rm -f python.ray.png python.ray.pgm ray.pyc
+	-rm -f jython.ray.png jython.ray.pgm 
+	-rm -f pypy.ray.png pypy.ray.pgm 
 
 python.ray.pgm: ray.py
 	time $(cPYTHON2) ray.py > $@
+	openssl md5 $@
+
+jython.ray.pgm: ray.py
+	time $(cJYTHON2) ray.py > $@
+	openssl md5 $@
+
+pypy.ray.pgm: ray.py
+	time $(cPYPY) ray.py > $@
 	openssl md5 $@
 
 ################################################################
