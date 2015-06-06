@@ -17,10 +17,10 @@ all: nodejs.ray.png
 
 clean:
 	-rm -f *~ make.log
-	-rm -f nodejs.ray.png nodejs.ray.pgm
+	-rm -f nodejs.ray.png nodejs.ray.pgm nodejs.ray.pgm.log
 
 nodejs.ray.pgm: ray.js nodejs.ray.js
-	time $(cNODEJS) nodejs.ray.js > $@
+	(time $(cNODEJS) nodejs.ray.js > $@) 2>&1 | tee $@.log
 	openssl md5 $@
 
 ################################################################
