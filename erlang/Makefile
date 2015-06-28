@@ -18,9 +18,12 @@ veryclean: clean
 	openssl md5 $@
 
 ################################################################
-erlware_commons/ebin/ec_plists.beam:
+erlware_commons_ebin=erlware_commons/_build/default/lib/erlware_commons/ebin
+ec_plists_beam=$(erlware_commons_ebin)/ec_plists.beam
+
+$(ec_plists_beam):
 	git clone https://github.com/erlware/erlware_commons.git
-	cd erlware_commons; make
+	cd erlware_commons; ./rebar3 compile
 
 ################################################################
 ray.beam: ray.erl
@@ -35,7 +38,7 @@ process.ray.pgm: ray.beam Makefile
 	(time erl -boot start_clean -noshell -smp enable +S 4 -s ray start_process >$@) 2>&1 | tee $@.log
 	openssl md5 $@
 
-plists.ray.pgm: ray.beam erlware_commons/ebin/ec_plists.beam
-	(time erl -boot start_clean -noshell -smp enable +S 4 -pa erlware_commons/ebin -s ray start_plists >$@) 2>&1 | tee $@.log
+plists.ray.pgm: ray.beam $(ec_plists_beam)
+	(time erl -boot start_clean -noshell -smp enable +S 4 -pa $(erlware_commons_ebin) -s ray start_plists >$@) 2>&1 | tee $@.log
 	openssl md5 $@
 
