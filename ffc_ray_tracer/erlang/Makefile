@@ -23,7 +23,7 @@ ec_plists_beam=$(erlware_commons_ebin)/ec_plists.beam
 
 $(ec_plists_beam):
 	git clone https://github.com/erlware/erlware_commons.git
-	cd erlware_commons; ./rebar3 compile
+	cd erlware_commons; ./rebar3 update; ./rebar3 compile
 
 ################################################################
 ray.beam: ray.erl
