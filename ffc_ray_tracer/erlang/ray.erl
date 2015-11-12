@@ -159,14 +159,14 @@ trace(process, Scene, Eye) ->
     gather_lines(0);
 trace(plists, Scene, Eye) ->
     io:format("P2~n~w ~w~n255~n",[?RESOLUTION,?RESOLUTION]),
-    Gs=lists:flatten(ec_plists:map(fun(Y)-> trace_line(Eye,Y,Scene) end, lists:seq(0,?RESOLUTION-1,1)),[4, {processes, 3}] ),
+    Gs=lists:flatten(ec_plists:map(fun(Y)-> trace_line(Eye,Y,Scene) end, lists:seq(0,?RESOLUTION-1,1))),
     _=[ io:format("~w ",[G]) ||G<-Gs].
 
 %    Gs=plists:map(fun(Y)-> trace_line(Eye,Y,Scene) end, lists:seq(0,?RESOLUTION-1,1)),
 %    _=[ [io:format("~w ",[X]) ||X<-G] ||G<-Gs].
 
 gather_lines(R)->
-    _=io:format("~n#gathering line ~w~n",[R]),
+%    _=io:format("~n#gathering line ~w~n",[R]),
     receive
 	{line, _, Gs} when R==?RESOLUTION-1 ->
 	    _=[ io:format("~w ",[G]) ||G<-Gs];
